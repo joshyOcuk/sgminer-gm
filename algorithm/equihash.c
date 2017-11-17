@@ -6,8 +6,8 @@
 
 #include "algorithm.h"
 
-#define N   200UL
-#define K   9UL
+#define N   192UL
+#define K   7UL
 
 #define COLLISION_BIT_LENGTH            (N / (K + 1))
 #define COLLISION_BYTE_LENGTH           ((COLLISION_BIT_LENGTH + 7) / 8)
@@ -268,9 +268,9 @@ uint32_t equihash_verify_sol(struct work *work, sols_t *sols, int sol_i)
     for (i = 0; i < (1 << PARAM_K); i++)
         inputs[i] = htobe32(inputs[i]);
 
-    CompressArray((unsigned char*)inputs, 512 * 4, work->equihash_data + 143, 1344, 21, 1);
+    CompressArray((unsigned char*)inputs, 512 * 4, work->equihash_data + 143, 400, 21, 1);
 
-    gen_hash(work->equihash_data, 1344 + 143, work->hash);
+    gen_hash(work->equihash_data, 400 + 143, work->hash);
 
     if (*(uint64_t*)(work->hash + 24) < *(uint64_t*)(work->target + 24)) {
         submit_tested_work(work->thr, work);
